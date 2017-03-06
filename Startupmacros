@@ -1937,20 +1937,18 @@ var ROTATIONQ=Dialog.getChoice();
 var compType=USEROS;
 var areaNumber=Dialog.getNumber();
 var SKIPIT=0;
-
-//processFiles(dir);
 for (i=0; i<list.length; i++){
-if (startsWith(list[i], "Area")){
+	if (startsWith(list[i], "Area")){
 		SECONDPATH=list[i];
 		SECONDPNGNAMESPLIT=split(SECONDPATH, ".");
 		SECONDPNGAREA=SECONDPNGNAMESPLIT[0];
 		SECONDNUMOFAREAS=substring(SECONDPNGAREA,4);
-	SECONDNUMOFAREASnum=parseFloat(SECONDNUMOFAREAS);
-	if (startsWith(SECONDNUMOFAREAS, "0")){
-			File.rename(dir+SECONDPATH, dir+"Area"+SECONDNUMOFAREASnum+".png");
-	}
-}
-}
+		SECONDNUMOFAREASnum=parseFloat(SECONDNUMOFAREAS);
+			if (startsWith(SECONDNUMOFAREAS, "0")){
+				File.rename(dir+SECONDPATH, dir+"Area"+SECONDNUMOFAREASnum+".png");
+							      }
+					}
+				}
 var list=getFileList(dir);
 var list=Array.sort(list);
 
@@ -1958,8 +1956,11 @@ setBatchMode(true);
 
 
 MakeCompositeFunction2();
+
 areaFolders();
+
 getXandY();
+
 Stitch();
 
 beep();
@@ -1967,242 +1968,313 @@ Dialog.create("Done!");
 Dialog.show();
 }
 
-function areaFolders() {
-dirParent=File.getParent(dir);
-if (compType=="PC"){
-	previousFolder=dirParent+"\\";
-} else if (compType=="Mac"){
-	previousFolder=dirParent+"/";
-	}
+function areaFolders() 
+{
+	dirParent=File.getParent(dir);
+		if (compType=="PC")
+			{
+				previousFolder=dirParent+"\\";
+			} 
+		else if (compType=="Mac"){
+				previousFolder=dirParent+"/";
+			}
 	
-print(previousFolder);
-list = getFileList(dir);
-listB=Array.sort(list);
-Array.print(list);
-setBatchMode(true);
-L=listB.length;
-print("L: "+L);
 
-for (w=1; w<=areaNumber; w++){
-File.makeDirectory(dir+"Area"+w);
-}
-for (i=0; i<L; i++){
-	if (!startsWith(listB[i], "Area")){
-		file_name=listB[i];
-		print("file_name: "+file_name);
-		split_file_name=split(file_name, "_");
-		Area=split_file_name[2]+"_";
-	if (compType=="PC"){
-		AreaFolder=split_file_name[2]+"\\";
-	} else if (compType=="Mac"){
-		AreaFolder=split_file_name[2]+"/";
-	} 
-	} else if (startsWith(listB[i], "Area")) {
-		file_name=listB[i];
-		print("file_name: "+file_name);
-		split_file_name=split(file_name, ".");
-		Area=split_file_name[0]+"_";
-		if (compType=="PC"){
-		AreaFolder=split_file_name[0]+"\\";
-	} else if (compType=="Mac"){
-		AreaFolder=split_file_name[0]+"/";
-	}
-	}
-File.rename(dir+file_name, dir+AreaFolder+file_name);
-}
+	list = getFileList(dir);
+	listB=Array.sort(list);
+	Array.print(list);
+	setBatchMode(true);
+	L=listB.length;
+	print("L: "+L);
+
+	for (w=1; w<=areaNumber; w++)
+		{
+		File.makeDirectory(dir+"Area"+w);
+		}
+	for (i=0; i<L; i++)
+		{
+		if (!startsWith(listB[i], "Area"))
+			{
+			file_name=listB[i];
+			//print("file_name: "+file_name);
+			split_file_name=split(file_name, "_");
+			Area=split_file_name[2]+"_";
+				if (compType=="PC")
+				{
+					AreaFolder=split_file_name[2]+"\\";
+				} 
+				else if (compType=="Mac")
+				{
+					AreaFolder=split_file_name[2]+"/";
+				} 
+			} 
+			else if (startsWith(listB[i], "Area")) 
+				{
+				file_name=listB[i];
+				print("file_name: "+file_name);
+				split_file_name=split(file_name, ".");
+				Area=split_file_name[0]+"_";
+				
+				if (compType=="PC")
+					{
+						AreaFolder=split_file_name[0]+"\\";
+					}
+					
+				else if (compType=="Mac")
+					{
+						AreaFolder=split_file_name[0]+"/";
+					}
+				}
+		File.rename(dir+file_name, dir+AreaFolder+file_name);
+		}
 }
 
 
 	//This function calculates the x and y variables for stitching the final image
 	//using the dimensions of the included .PNG file
 	//It renames the .png with the x_y dimensions -> the .png will be deleted later
-function getXandY(){
+function getXandY()
+{
 	folderList = getFileList(dir);
 	dirParent = File.getParent(dir);
 	dirParentList = getFileList(dirParent);
-for (p=0; p<folderList.length; p++){
-	imagelist = getFileList(dir+folderList[p]);
-	for (j=0; j<imagelist.length; j++){
-		if (startsWith(imagelist[j], "Area")){
-			setBatchMode(true);
-			open(dir+folderList[p]+imagelist[j]);
-			title = getTitle();
-			splitTitle = split(title, ".");
-			getDimensions(width, height, channels, slices, frames);
-			x = width/1280;
-			y = height/960;
-//Use rounding script to get x and y from 1280x960
-//x=round(x);
-//y=round(y);
-			total=x*y;
-			PNGratio=x/y;
-			D = imagelist.length-1;
-			print ("D: "+D);
-//print("PNGratio = "+PNGratio);
-		for (i=1; i<D; i++){
-			y=D/i;
+	
+	for (p=0; p<folderList.length; p++)
+		{
+		imagelist = getFileList(dir+folderList[p]);
+		for (j=0; j<imagelist.length; j++)
+			{
+			if (startsWith(imagelist[j], "Area"))
+				{
+				setBatchMode(true);
+				open(dir+folderList[p]+imagelist[j]);
+				title = getTitle();
+				splitTitle = split(title, ".");
+				getDimensions(width, height, channels, slices, frames);
+				x = width/1280;
+				y = height/960;
+				total=x*y;
+				PNGratio=x/y;
+				D = imagelist.length-1;
+				//print ("D: "+D);
+				
+				for (i=1; i<D; i++)
+					{
+					y=D/i;
 //print(i+"y = "+y);
-			Inty=parseInt(y);
+					Inty=parseInt(y);
 //print(i+"Inty = "+Inty);	
-			if (Inty==y){
-				ratio= i/y;
+					if (Inty==y)
+						{
+						ratio= i/y;
 //print("x could equal "+i+" and y could equal "+y+", and ratio will equal "+ratio);
-				RatioTest=PNGratio-ratio;
-				RatioTest=abs(RatioTest);
+						RatioTest=PNGratio-ratio;
+						RatioTest=abs(RatioTest);
 //print("RatioTest: "+RatioTest);
-				if (RatioTest <= 0.1){
-					x=i;
-					y=Inty;
-					print("x = "+x);
-					print("y = "+y);
-					File.rename(dir+folderList[p]+imagelist[j], dir+folderList[p]+splitTitle[0]+"_"+x+"_"+y);
+						if (RatioTest <= 0.1)
+							{
+							x=i;
+							y=Inty;
+							print("x = "+x);
+							print("y = "+y);
+							File.rename(dir+folderList[p]+imagelist[j], dir+folderList[p]+splitTitle[0]+"_"+x+"_"+y);
+							}
+						}
+					}
+				close();
 				}
 			}
 		}
-		close();
-		}
-	}
-}
 }
 
 	//This function creates the full composite stitched image. It renames the images to 
 	//appease the needs of the stitching plugin then stitches the pictures based on
 	//x and y coordinates previously found.
-function Stitch() {
-var newList = getFileList(dir);
-
-if (ROTATIONQ==items[0]){
-	ROTATIONQ="Right";
-} else if (ROTATIONQ==items[1]){
+	
+function Stitch() 
+{
+	var newList = getFileList(dir);
+	
+	if (ROTATIONQ==items[0])
+	{
+		ROTATIONQ="Right";
+	} 
+	else if (ROTATIONQ==items[1])
+	{
 	ROTATIONQ="Left";
-	} else if (ROTATIONQ==items[2]){
+	} 
+	else if (ROTATIONQ==items[2])
+	{
 	SKIPIT=1;
-		}	
+	}	
 
 //print("ROTATIONQ = "+ROTATIONQ);
 
-for (m=0; m<newList.length; m++){
+	for (m=0; m<newList.length; m++)
+	{
 	
-path1=dir+newList[m];
-DIRECTORYQ=File.isDirectory(path1);
-
-	if (DIRECTORYQ==1){
-		path2=dir+newList[m];
-		path3=newList[m];
-		if (compType=="Mac"){
-			path3=split(path3, "/");
-		} else if (compType=="PC"){
-			path3 =split(path3, "\\");
-		}
-		path4=path3[0];
-		listI=getFileList(path2);
-		title=path4;
-		XANDY=split(title, "_");
-		TITLE=XANDY[0];
-		TITLE_split=split(TITLE,"/");
-		TITLE=TITLE_split[0];
-		Renamescannedimages3();
-    	StitchImages3();
-    	SaveImages3();	
-	} else {
-		for (m=0; m<newList.length; m++){
-			image_list=getFileList(newList[m]);
-			path2=dir+list[m];
-			listI=image_list;
-			path2=dir;
-			path3=path2;
-			if (compType=="Mac"){
-				path4=split(path3, "/");
-			} else if (compType=="PC"){
-				path4=split(path3, "\\");
+	path1=dir+newList[m];
+	DIRECTORYQ=File.isDirectory(path1);
+		
+	if (DIRECTORYQ==1)
+			{
+			path2=dir+newList[m];
+			path3=newList[m];
+			if (compType=="Mac")
+				{
+				path3=split(path3, "/");
+				} 
+			else if (compType=="PC")
+				{
+				path3 =split(path3, "\\");
+				}
+			path4=path3[0];
+			listI=getFileList(path2);
+			title=path4;
+			XANDY=split(title, "_");
+			TITLE=XANDY[0];
+			TITLE_split=split(TITLE,"/");
+			TITLE=TITLE_split[0];
+			
+			Renamescannedimages3();
+		
+    			StitchImages3();
+	
+    			SaveImages3();	
+	
+			} 
+	else 
+		{
+			for (m=0; m<newList.length; m++)
+			{
+				image_list=getFileList(newList[m]);
+				path2=dir+list[m];
+				listI=image_list;
+				path2=dir;
+				path3=path2;
+				if (compType=="Mac")
+					{
+						path4=split(path3, "/");
+					} 
+				else if (compType=="PC")
+					{
+					path4=split(path3, "\\");
+					}
+				path3num=path4.length;
+				path3num=path3num-1;
+				path4=path4[path3num];
 			}
-			path3num=path4.length;
-			path3num=path3num-1;
-			path4=path4[path3num];
 		}
-   
-	}
-}	
+	}	
 }
 
 	//This function renames the images in order to meet the needs of the subsequent 
 	//stitching program. e.g. making the image numbers "01" instead of "1"
-function Renamescannedimages3() {
+	
+function Renamescannedimages3() 
+{
 
-listB=Array.sort(listI);
-//Array.show(listB);
-setBatchMode(true);
-L=listB.length;
+	listB=Array.sort(listI);
+	//Array.show(listB);
+	setBatchMode(true);
+	L=listB.length;
 
-for (i=0; i<listB.length; i++){
-	if (!startsWith(listB[i], "Area")){
-		file_name=listB[i];
-		splitfile_name=split(file_name, "_");
-		Array.print(splitfile_name);
-		date=splitfile_name[0]+"_";
-		scanname=splitfile_name[1]+"_";
-		AreaActual=splitfile_name[3];
-		Area=splitfile_name[2]+"_";
-		imagenumber=splitfile_name[3]+"_";
-		color=splitfile_name[4];
-	}
+	for (i=0; i<listB.length; i++)
+	{
+		if (!startsWith(listB[i], "Area"))
+			{
+				file_name=listB[i];
+				splitfile_name=split(file_name, "_");
+				Array.print(splitfile_name);
+				date=splitfile_name[0]+"_";
+				scanname=splitfile_name[1]+"_";
+				AreaActual=splitfile_name[3];
+				Area=splitfile_name[2]+"_";
+				imagenumber=splitfile_name[3]+"_";
+				color=splitfile_name[4];
+				
+				
+//Should this bracket be deleted?? 				
+			}
+	//		
+			
+			
+			
 //print("date: "+date);
 //print("scanname: "+scanname);
 //print("imagenumber: "+imagenumber);
 //print("color: "+color);
 //print("AreaActual: "+AreaActual);
-	j=AreaActual;
-	jnum=parseFloat(j);
-	if (!startsWith(j, "0")){
-		if (L<100){
-			if (jnum<10) {
-				j="0"+j;
-			}
-			File.rename(path2+file_name, path2+date+scanname+Area+j+"_"+color);
-		} else if (L<1000){
-			if (jnum<10) {
-				j="0"+j;
-			}
-			if (jnum<100) {
-				j="0"+j;
-			}
-			File.rename(path2+file_name, path2+date+scanname+Area+j+"_"+color);
-		}
+				j=AreaActual;
+				jnum=parseFloat(j);
+				if (!startsWith(j, "0"))
+					{
+						if (L<100)
+							{
+								if (jnum<10) 
+									{
+										j="0"+j;
+									}
+								File.rename(path2+file_name, path2+date+scanname+Area+j+"_"+color);
+							} 
+						else if (L<1000)
+							{
+								if (jnum<10) 
+									{
+										j="0"+j;
+									}
+								if (jnum<100) 
+									{
+										j="0"+j;
+									}
+								File.rename(path2+file_name, path2+date+scanname+Area+j+"_"+color);
+							}
+					}
 	}
-}
 }
 
 	//This function runs the Grid/Collection plugin to stitch the composite images 
 	//into a full size image of the area in question
-function StitchImages3() {
-dirParent = File.getParent(dir);
-folderList = getFileList(dirParent);
-title=path4;
-XANDY=split(title, "_");
-TITLE=XANDY[0];
-
-file_names=listI[0];
-file_names=split(file_names, "_");
-date=file_names[0]+"_";
-scanname=file_names[1]+"_";
-Area=file_names[2]+"_";
-imagenumber=file_names[3]+"_";
-color=file_names[4];
-if (listI.length<10) {
-	Name=date+scanname+Area+"{i}_"+color;
-} else if (listI.length<100) {
-	Name=date+scanname+Area+"{ii}_"+color;
-} else if (listI.length<1000) {
-	Name=date+scanname+Area+"{iii}_"+color;	
-} else if (listI.length<10000) {
-	Name=date+scanname+Area+"{iiii}_"+color;	
-}
-var x = 0;
-var y = 0;
-
+	
+function StitchImages3() 
+{
+	dirParent = File.getParent(dir);
+	folderList = getFileList(dirParent);
+	title=path4;
+	XANDY=split(title, "_");
+	TITLE=XANDY[0];
+	file_names=listI[0];
+	file_names=split(file_names, "_");
+	date=file_names[0]+"_";
+	scanname=file_names[1]+"_";
+	Area=file_names[2]+"_";
+	imagenumber=file_names[3]+"_";
+	color=file_names[4];
+	
+	if (listI.length<10) 
+		{
+		Name=date+scanname+Area+"{i}_"+color;
+		} 
+		
+	else if (listI.length<100) 
+		{
+		Name=date+scanname+Area+"{ii}_"+color;
+		} 
+	else if (listI.length<1000) 
+		{
+		Name=date+scanname+Area+"{iii}_"+color;	
+		} 
+	else if (listI.length<10000) 
+		{
+		Name=date+scanname+Area+"{iiii}_"+color;	
+		}
+	var x = 0;
+	var y = 0;
 	Array.print (listI);
-	for (j=0; j<listI.length; j++){
-		if (startsWith(listI[j], "Area")){
+	for (j=0; j<listI.length; j++)
+		{
+		if (startsWith(listI[j], "Area"))
+			{
 			png_title = listI[j];
 			print("png_title_x_y: "+png_title);
 			split_png_title = split(png_title, "_");
@@ -2211,34 +2283,40 @@ var y = 0;
 			y = split_png_title[2];
 			print("x = "+x);
 			print("y = "+y);
-		}
-		if (startsWith(listI[j], "Area")){
+			}
+		if (startsWith(listI[j], "Area"))
+			{
 			File.delete(path2+listI[j]);
+			}
 		}
-	}
 
-	//print("path2?: "+path2);
-
-run("Grid/Collection stitching", "type=[Grid: row-by-row] order=[Right & Up] grid_size_x="+x+" grid_size_y="+y+" tile_overlap=10 first_file_index_i=1 directory=["+path2+"] file_names="+Name+" output_textfile_name=TileConfiguration.txt fusion_method=[Linear Blending] regression_threshold=0.30 max/avg_displacement_threshold=2.50 absolute_displacement_threshold=3.50 compute_overlap computation_parameters=[Save computation time (but use more RAM)] image_output=[Fuse and display]");
+	run("Grid/Collection stitching", "type=[Grid: row-by-row] order=[Right & Up] grid_size_x="+x+" grid_size_y="+y+" tile_overlap=10 first_file_index_i=1 directory=["+path2+"] file_names="+Name+" output_textfile_name=TileConfiguration.txt fusion_method=[Linear Blending] regression_threshold=0.30 max/avg_displacement_threshold=2.50 absolute_displacement_threshold=3.50 compute_overlap computation_parameters=[Save computation time (but use more RAM)] image_output=[Fuse and display]");
 }
 
 
 
-function SaveImages3() {
-setBatchMode(true);
-selectWindow("Fused");
-//rename(title+" "+color);
-//selectWindow(title+" "+color);
-//run("Subtract Background...", "rolling=20 sliding");
-if (SKIPIT!=1){
-run("Rotate 90 Degrees "+ROTATIONQ);
+function SaveImages3() 
+{
+	setBatchMode(true);
+	selectWindow("Fused");
+	//rename(title+" "+color);
+	//selectWindow(title+" "+color);
+	if (SKIPIT!=1)
+		{
+		run("Rotate 90 Degrees "+ROTATIONQ);
+		}
+	Stack.setDisplayMode("composite");
+	path=TITLE+".tif";
+	saveAs("Tiff", saveDir+SCANNAME+path);
+	close();
 }
 
-Stack.setDisplayMode("composite");
-path=TITLE+".tif";
-saveAs("Tiff", saveDir+SCANNAME+path);
-close();
-}
+
+
+
+
+
+
 
 
 
