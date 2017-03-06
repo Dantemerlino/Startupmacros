@@ -97,95 +97,6 @@ else
 
 
 
-//////////////////////////////////////////////
-
-
-
-////////////////////////////////////////////////////////////////////
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-////////////////////////////////////////////////////////////////////
-
-
-
-//////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-//////////////////////////////////////////////
-
-
-
-////////////////////////////////////////////////////////////////////
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-////////////////////////////////////////////////////////////////////
-
-
-
-//////////////////////////////////////////////
-
-
-
-
-
-
-
-//////////////////////////////////////////////
-
-
-
-////////////////////////////////////////////////////////////////////
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-////////////////////////////////////////////////////////////////////
-
-
-
-//////////////////////////////////////////////
-
-
-
-
-
-
-
-
 
 
 
@@ -218,12 +129,16 @@ else
  
 
 macro "Mr Robot. Action Tool - C000D00D01D02D03D04D05D06D07D08D09D0aD0bD0cD0dD0eD0fD10D1eD1fD20D22D23D24D25D26D27D28D29D2aD2bD2cD2dD2eD2fD30D32D33D34D3eD3fD40D41D43D44D46D47D48D49D4aD4bD4cD4dD4eD4fD50D51D52D54D55D57D58D59D5aD5bD5cD5dD5eD5fD60D61D62D63D65D66D68D69D6aD6bD6cD6dD6eD6fD70D71D72D73D74D76D77D79D7aD7bD7cD7dD7eD7fD80D81D82D83D85D86D88D89D8aD8bD8cD8dD8eD8fD90D91D92D94D95D97D98D99D9aD9bD9cD9dD9eD9fDa0Da1Da3Da4Da6Da7Da8Da9DaaDabDacDadDaeDafDb0Db2Db3Db4DbeDbfDc0Dc2Dc3Dc4Dc5Dc6Dc7Dc8Dc9DcaDcbDccDcdDceDcfDd0DdeDdfDe0De1De2De3De4De5De6De7De8De9DeaDebDecDedDeeDefDf0Df1Df2Df3Df4Df5Df6Df7Df8Df9DfaDfbDfcDfdDfeDffC000C100C200C300C400C500C600C700C800C900Ca00Cb00Cc00Cd00Ce00Cf00C000C010C020C030C040C050C060C070C080C090C0a0C0b0C0c0C0d0C0e0C0f0D11D12D13D14D15D16D17D18D19D1aD1bD1cD1dD21D31D35D36D37D38D39D3aD3bD3cD3dD42D45D53D56D64D67D75D78D84D87D93D96Da2Da5Db1Db5Db6Db7Db8Db9DbaDbbDbcDbdDc1Dd1Dd2Dd3Dd4Dd5Dd6Dd7Dd8Dd9DdaDdbDdcDdd"{
+TOOLS=newArray("Dilute a solution to a certain concentration", "Dissolve a solid in a liquid to a final concentration", "dilute cells to a certain concentration", "Image and Analyze a DNA gel", "Image and analyze a western blot", "Analyze Evos images", "Analyze a cGMP ELISA"); 
+Diluent=newArray("Water", "PBS", "DMSO", "Milk", "Media", "Other");
+Units=newArray("pM", "nM", "uM", "mM", "M","mg/mL", "% (w/v)", "%(v/v)");
+Units=newArray("pM", "nM", "uM", "mM", "M", "g/mL", "mg/mL", "ug/mL", "% (w/v)", "%(v/v)");
+VolumeUnits=newArray("μL", "mL", "L");
 OS=getInfo("os.name");
 Mac=startsWith(OS,"M");
 if (Mac==1){
 	USEROS="Mac";
-}
-else USEROS="PC";
+} else USEROS="PC";
 
 var HOME=getDirectory("home");
 var DNADir=HOME+"Google Drive/DNA Gel Archive/";
@@ -232,20 +147,15 @@ var DNADir=HOME+"Google Drive/DNA Gel Archive/";
 var WBDir=HOME+"Google Drive/Western Blot Archive/";
 //print(WBDir);
 YesNo=newArray("Yes","No");
-//print(HOME);
+
 FIJILogFolder=HOME+"FIJI log/";
 FIJILogExists=File.exists(FIJILogFolder);
 if (FIJILogExists==0){
-	File.makeDirectory(FIJILogFolder);
-}
+	File.makeDirectory(FIJILogFolder); }
 
 "\\Clear";
 getDateandTime();
-TOOLS=newArray("Dilute a solution to a certain concentration", "Dissolve a solid in a liquid to a final concentration", "dilute cells to a certain concentration", "Image and Analyze a DNA gel", "Image and analyze a western blot", "Analyze Evos images", "Analyze a cGMP ELISA"); 
-Diluent=newArray("Water", "PBS", "DMSO", "Milk", "Media", "Other");
-Units=newArray("pM", "nM", "uM", "mM", "M","mg/mL", "% (w/v)", "%(v/v)");
-Units=newArray("pM", "nM", "uM", "mM", "M", "g/mL", "mg/mL", "ug/mL", "% (w/v)", "%(v/v)");
-VolumeUnits=newArray("μL", "mL", "L");
+
 Dialog.create("Hi! I'm your Robotic Dante.");
 		Dialog.addChoice("What do you need to do?", TOOLS);
 		Dialog.show();
@@ -485,6 +395,15 @@ print("Volume of "+DiluentChoice+" to add: "+DiluenttoAdd+" "+V2Unit);
 
 ///////////////////
 
+//////////////////////////////////////
+
+/////////////////////////////////////////////////////////
+
+//////////////////////////////////////
+
+///////////////////
+
+
 function Dissolve(){
 	Dialog.create("Dissolving Wizard: Remember, C1V1=C2V2");
 		Dialog.addMessage("Please fill out the following:");
@@ -605,7 +524,16 @@ dump();
 
 
 
-/////////////////////////////////
+///////////////////
+
+//////////////////////////////////////
+
+/////////////////////////////////////////////////////////
+
+//////////////////////////////////////
+
+///////////////////
+
 
 function DiluteCells(){
 	Dialog.create("Cell Dilution Wizard: Remember, C1V1=C2V2");
@@ -715,7 +643,17 @@ dump();
 }
 
 
-/////////////////////////////
+
+
+///////////////////
+
+//////////////////////////////////////
+
+/////////////////////////////////////////////////////////
+
+//////////////////////////////////////
+
+///////////////////
 
 
 function DNAGel(){
@@ -838,11 +776,16 @@ dump();
 
 
 
+///////////////////
 
+//////////////////////////////////////
 
+/////////////////////////////////////////////////////////
 
+//////////////////////////////////////
 
-////////////////////////////
+///////////////////
+
 
 function WesternBlot(){
 	dir=getDirectory("Choose the folder with your new western blot images");
@@ -962,9 +905,15 @@ dump();
 
 
 
+///////////////////
 
+//////////////////////////////////////
 
-////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+
+//////////////////////////////////////
+
+///////////////////
 
 
 function Evos(){
@@ -1069,41 +1018,42 @@ var RollingBallRadius=Dialog.getNumber();
 
 DeleteRGBimages50 ();
 countcolors50 ();
-Dialog.create("Done!");
-Dialog.show();
+//Dialog.create("Done!");
+//Dialog.show();
 }
 }
 
 
 
 function DeleteRGBimages50 ()
-		{
+
+{
  list = getFileList(dir);
  for (k=0; k<list.length; k++)
  	{
  	path=dir+list[k];
  	if (!endsWith(path, ".png")) 
  		{	
-	if (!endsWith(path, "Red.tif")) 
+			if (!endsWith(path, "Red.tif")) 
 			{
 
-	if (!endsWith(path, "DAPI.tif")) 
+				if (!endsWith(path, "DAPI.tif")) 
 				{
 
-	if (!endsWith(path, "GFP.tif")) 
+					if (!endsWith(path, "GFP.tif")) 
 					{
 
-	if (!endsWith(path, "CY5.tif")) 
-							{
+						if (!endsWith(path, "CY5.tif")) 
+						{
 	
-		File.delete(path);
-							}
+							File.delete(path);
+						}
 					}
 				}
 			}
 		}
-		}
-		}
+	}
+}
 
 function countcolors50 () {
 	list=getFileList(dir);
@@ -1119,26 +1069,26 @@ for (i=0; i<list.length; i++) {
 	Cx=endsWith(list[i], "CY5.tif");
 	Gx=endsWith(list[i], "GFP.tif");
 	if (Dx==1) {
-		D=D+1;
-	}
+			D=D+1;
+		   }
 	else {
 	D=D+0;
-	}
+	     }
 	if (Rx==1) {
 		R=R+1;
-	}
+	 	   }
 	else {
 	R=R+0;
 	}
 	if (Cx==1) {
 		C=C+1;
-	}
+		   }
 	else {
 	C=C+0;
 	}
 	if (Gx==1) {
 		G=G+1;
-	}
+		   }
 	else {
 	G=G+0;
 }
